@@ -9,21 +9,42 @@ import {
 	ScrollView,
 	FlatList,
 } from 'react-native';
-import { GoalInput } from './components/GoalInput';
-
-export default function App() {
-	const [goals, setGoals] = useState([{ key: 0, value: '' }]);
-
-	const addGoalHandler = (enteredGoal: string) => {
-		console.log(enteredGoal);
-		setGoals([{ key: goals.length, value: enteredGoal }, ...goals]);
-	};
-
+export const GoalItem = () => {
 	return (
 		<View style={styles.container}>
 			<View>
-				<GoalInput addGoalHandler={addGoalHandler} />
-
+				<View
+					style={{
+						flexDirection: 'row',
+						marginVertical: 32,
+					}}
+				>
+					<TextInput
+						placeholder="type something!!!"
+						style={{
+							borderColor: '#7400b8',
+							borderWidth: 1,
+							padding: 10,
+							paddingHorizontal: 24,
+							borderRadius: 24,
+							width: '80%',
+						}}
+						value={enteredGoal}
+						onChangeText={(txt) => {
+							setEnteredGoal(txt);
+						}}
+						onEndEditing={() => {
+							addGoalHandler();
+							setEnteredGoal('');
+						}}
+					/>
+					<Button
+						title="ADD"
+						onPress={() => {
+							addGoalHandler();
+						}}
+					/>
+				</View>
 				<FlatList
 					data={goals}
 					contentContainerStyle={{
@@ -52,7 +73,7 @@ export default function App() {
 			<StatusBar style="auto" />
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
