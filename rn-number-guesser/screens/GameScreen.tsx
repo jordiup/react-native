@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { NumberContainer } from '../components/NumberContainer';
 import { Card } from '../components/Card';
@@ -10,7 +10,7 @@ const generateRandomBetween = (min, max, exclude) => {
 	if (rndNum === exclude) {
 		return generateRandomBetween(min, max, exclude);
 	} else {
-		rndNum;
+		return rndNum;
 	}
 };
 
@@ -18,6 +18,7 @@ export const GameScreen = (props) => {
 	const [currentGuess, setCurrentGuess] = useState(
 		generateRandomBetween(1, 100, props.userChoice)
 	);
+	const [rounds, setRounds] = useState(0);
 
 	// Refs tell react that their logic shouldn't
 	// cause re-renders and the logic can be run in the
@@ -25,12 +26,14 @@ export const GameScreen = (props) => {
 	const currentLow = useRef(1);
 	const currentHigh = useRef(100);
 
+	const { userChoice, onGameOver } = props;
+
 	useEffect(() => {
 		// game over
 		if (currentGuess === props.userChoice) {
-			props.onGameOver();
+			props.onGameOver(rounds);
 		}
-	}, []);
+	}, [currentGuess, userChoice, onGameOver]);
 
 	const nextGuessHandler = (direction) => {
 		if (
@@ -56,15 +59,12 @@ export const GameScreen = (props) => {
 			currentGuess
 		);
 		setCurrentGuess(nextNumber);
+		setRounds((currentRounds) => currentRounds + 1);
 	};
 
 	return (
 		<View style={styles.screen}>
 			<Text>Oponent's Guess</Text>
-			{/* 
-				@TODO: currentGuess is not showing atm. 
-
-			*/}
 			<NumberContainer>{currentGuess}</NumberContainer>
 			<Card style={styles.buttonContainer}>
 				<Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />

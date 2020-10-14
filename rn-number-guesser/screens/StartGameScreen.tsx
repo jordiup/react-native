@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		alignItems: 'center',
 	},
-	title: { fontSize: 20, marginVertical: 20 },
+	title: { fontFamily: 'open-sans-bold', fontSize: 20, marginVertical: 20 },
 	buttonContainer: {
 		flexDirection: 'row',
 		width: '100%',
