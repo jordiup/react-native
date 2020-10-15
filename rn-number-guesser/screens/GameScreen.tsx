@@ -64,14 +64,19 @@ export const GameScreen = (props) => {
 
 	return (
 		<View style={styles.screen}>
-			<Text>Oponent's Guess</Text>
-			<NumberContainer>{currentGuess}</NumberContainer>
-			<Card style={styles.buttonContainer}>
-				<Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
-				<Button
-					title="GREATER"
-					onPress={nextGuessHandler.bind(this, 'greater')}
-				/>
+			<Card>
+				<Text>Oponent's Guess</Text>
+				<NumberContainer>{currentGuess}</NumberContainer>
+				<View style={styles.buttonContainer}>
+					<Button
+						title="LOWER"
+						onPress={nextGuessHandler.bind(this, 'lower')}
+					/>
+					<Button
+						title="GREATER"
+						onPress={nextGuessHandler.bind(this, 'greater')}
+					/>
+				</View>
 			</Card>
 		</View>
 	);
